@@ -1,9 +1,20 @@
-﻿@if (Request.IsAuthenticated)
+﻿@using System.Security.Claims
+@if (Request.IsAuthenticated)
 {
     <text>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a id="profile-link">@User.Identity.Name</a>
+                @{
+                    string email = null;
+                    foreach (Claim claim in ClaimsPrincipal.Current.Claims)
+                    {
+                        if (claim.Type == "emails")
+                        {
+                            email = claim.Value;
+                        }
+                    }
+                }
+                <a id="profile-link">@User.Identity.Name - @email</a>
             </li>
             <li>
                 @Html.ActionLink("Sign out", "Logout", "Account")
