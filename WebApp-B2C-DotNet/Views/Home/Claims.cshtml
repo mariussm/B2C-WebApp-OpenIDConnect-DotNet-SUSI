@@ -12,7 +12,29 @@
         <th>Claim Value</th>
     </tr>
 
+   
+
     @foreach (Claim claim in ClaimsPrincipal.Current.Claims)
+    {
+        <tr>
+            <td>@claim.Type</td>
+            <td>@claim.Value</td>
+        </tr>
+    }
+
+
+
+    
+
+</table>
+
+<table class="table table-hover table-striped table-condensed">
+    <tr>
+        <th>Claim Type</th>
+        <th>Claim Value</th>
+    </tr>
+
+    @foreach (Claim claim in ClaimsPrincipal.Current.FindAll(claim => claim.Type.Contains("bid_client_id") || claim.Value.Contains("bid_client_id")))
     {
         <tr>
             <td>@claim.Type</td>
