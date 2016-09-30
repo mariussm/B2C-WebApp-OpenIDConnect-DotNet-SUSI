@@ -21,6 +21,17 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
         {
             Claim displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType);
             ViewBag.DisplayName = displayName != null ? displayName.Value : string.Empty;
+
+            ViewBag.accessToken = "Nothing yet!";
+
+            var identity = (ClaimsIdentity)ClaimsPrincipal.Current.Identity;
+            string accessToken = identity.FindFirst("access_token").Value;
+
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                ViewBag.accessToken = accessToken;
+            }
+
             return View();
         }
 
