@@ -27,7 +27,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             var identity = (ClaimsIdentity)ClaimsPrincipal.Current.Identity;
             string accessToken = identity.FindFirst("access_token").Value;
 
-            if (string.IsNullOrEmpty(accessToken))
+            if (!string.IsNullOrEmpty(accessToken))
             {
                 ViewBag.accessToken = accessToken;
             }
