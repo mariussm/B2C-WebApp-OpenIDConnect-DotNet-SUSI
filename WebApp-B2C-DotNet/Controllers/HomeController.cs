@@ -22,7 +22,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             Claim displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType);
             ViewBag.DisplayName = displayName != null ? displayName.Value : string.Empty;
 
-            var identity = (ClaimsIdentity)ClaimsPrincipal.Current.Identity;
+            var identity = ClaimsPrincipal.Current.Identities.First();
 
             if (identity != null && identity.IsAuthenticated)
             {
