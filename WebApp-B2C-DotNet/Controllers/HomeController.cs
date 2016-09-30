@@ -22,6 +22,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             Claim displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType);
             ViewBag.DisplayName = displayName != null ? displayName.Value : string.Empty;
 
+            /*
             ViewBag.message = "access_token received!";
 
             // var identity = (ClaimsIdentity)ClaimsPrincipal.Current.Identity;
@@ -32,6 +33,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             {
                 ViewBag.message = "no access token received!";
             }
+            */
 
             return View();
         }
