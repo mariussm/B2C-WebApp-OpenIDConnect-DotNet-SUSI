@@ -24,8 +24,9 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
             ViewBag.message = "access_token received!";
 
-            var identity = (ClaimsIdentity)ClaimsPrincipal.Current.Identity;
-            string accessToken = identity.FindFirst("access_token").Value;
+            // var identity = (ClaimsIdentity)ClaimsPrincipal.Current.Identity;
+            string accessToken = ClaimsPrincipal.Current.FindFirst(i => i.Type.Equals("access_token")).Value;
+            // string accessToken = identity.FindFirst("access_token").Value;
 
             if (string.IsNullOrEmpty(accessToken))
             {
