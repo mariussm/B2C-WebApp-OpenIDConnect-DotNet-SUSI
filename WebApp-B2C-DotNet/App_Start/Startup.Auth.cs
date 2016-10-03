@@ -58,7 +58,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
                 
                 },
                 Scope = "openid",  
-                ResponseType = "id_token",
+                ResponseType = "code id_token", // Added 'code' in front of id_token
 
                 // The PolicyConfigurationManager takes care of getting the correct Azure AD authentication
                 // endpoints from the OpenID Connect metadata endpoint.  It is included in the PolicyAuthHelpers folder.
