@@ -55,16 +55,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
                     AuthenticationFailed = AuthenticationFailed,
                     RedirectToIdentityProvider = OnRedirectToIdentityProvider,
                     SecurityTokenValidated = OnSecurityTokenValidated,
-                    /* Try to add bid_client_id claim as Kantega's solution is
-                    RedirectToIdentityProvider = ctx =>
-                    {
-                        if (ctx.ProtocolMessage.RequestType == OpenIdConnectRequestType.AuthenticationRequest)
-                        {
-                            ctx.ProtocolMessage.Parameters.Add("bid_client_id", "DotNetClient");
-                        }
-                        return Task.FromResult(0);
-                    }, */
-                   
+                
                 },
                 Scope = "openid",
                 ResponseType = "id_token",
@@ -91,6 +82,15 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
         private async Task OnRedirectToIdentityProvider(RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
             PolicyConfigurationManager mgr = notification.Options.ConfigurationManager as PolicyConfigurationManager;
+
+             //  Try to add bid_client_id claim as Kantega's solution is   
+             if (notification.ProtocolMessage.RequestType == OpenIdConnectRequestType.AuthenticationRequest)
+             {
+                 notification.ProtocolMessage.Parameters.Add("bid_client_id", "DotNetClient");
+             }
+                   
+               
+
             if (notification.ProtocolMessage.RequestType == OpenIdConnectRequestType.LogoutRequest)
             {
                 OpenIdConnectConfiguration config = await mgr.GetConfigurationByPolicyAsync(CancellationToken.None, notification.OwinContext.Authentication.AuthenticationResponseRevoke.Properties.Dictionary[Startup.PolicyKey]);
