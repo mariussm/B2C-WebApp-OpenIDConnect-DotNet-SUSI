@@ -57,7 +57,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
                     SecurityTokenValidated = OnSecurityTokenValidated,
                 
                 },
-                Scope = "openid nnin", // Added nnin 
+                Scope = "openid",  
                 ResponseType = "id_token",
 
                 // The PolicyConfigurationManager takes care of getting the correct Azure AD authentication
