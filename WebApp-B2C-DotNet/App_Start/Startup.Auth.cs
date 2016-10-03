@@ -53,9 +53,9 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
                 Notifications = new OpenIdConnectAuthenticationNotifications
                 { 
                     AuthenticationFailed = AuthenticationFailed,
-                   // RedirectToIdentityProvider = OnRedirectToIdentityProvider,
+                    RedirectToIdentityProvider = OnRedirectToIdentityProvider,
                     SecurityTokenValidated = OnSecurityTokenValidated,
-                    // Try to add bid_client_id claim as Kantega's solution is
+                    /* Try to add bid_client_id claim as Kantega's solution is
                     RedirectToIdentityProvider = ctx =>
                     {
                         if (ctx.ProtocolMessage.RequestType == OpenIdConnectRequestType.AuthenticationRequest)
@@ -63,7 +63,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
                             ctx.ProtocolMessage.Parameters.Add("bid_client_id", "DotNetClient");
                         }
                         return Task.FromResult(0);
-                    },
+                    }, */
                    
                 },
                 Scope = "openid",
