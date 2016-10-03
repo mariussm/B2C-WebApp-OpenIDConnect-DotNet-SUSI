@@ -42,6 +42,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
+           
 
             OpenIdConnectAuthenticationOptions options = new OpenIdConnectAuthenticationOptions
             {
@@ -52,8 +53,18 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
                 Notifications = new OpenIdConnectAuthenticationNotifications
                 { 
                     AuthenticationFailed = AuthenticationFailed,
-                    RedirectToIdentityProvider = OnRedirectToIdentityProvider,
+                   // RedirectToIdentityProvider = OnRedirectToIdentityProvider,
                     SecurityTokenValidated = OnSecurityTokenValidated,
+                    // Try to add bid_client_id claim as Kantega's solution is
+                    RedirectToIdentityProvider = ctx =>
+                    {
+                        if (ctx.ProtocolMessage.RequestType == OpenIdConnectRequestType.AuthenticationRequest)
+                        {
+                            ctx.ProtocolMessage.Parameters.Add("bid_client_id", "DotNetClient");
+                        }
+                        return Task.FromResult(0);
+                    },
+                   
                 },
                 Scope = "openid",
                 ResponseType = "id_token",
@@ -69,6 +80,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
                 {  
                     NameClaimType = "name",
                 },
+               
             };
 
             app.UseOpenIdConnectAuthentication(options);
