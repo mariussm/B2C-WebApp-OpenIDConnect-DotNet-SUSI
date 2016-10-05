@@ -98,7 +98,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
         public async Task<string> GetToken(string bidCode)
         {
-           
+
             
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "token");
 
@@ -110,10 +110,13 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
                                             Encoding.UTF8,
                                             "application/x-www-form-urlencoded");
 
-           
-            var response = await (new HttpClient()).PostAsync(msg);
+           // var body = await (msg.Content.ReadAsStringAsync());
 
-            throw new Exception("Response: \n" + response);
+            throw new Exception("Message: \n" + msg);
+
+            var response = await (new HttpClient()).SendAsync(msg);
+
+           
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
