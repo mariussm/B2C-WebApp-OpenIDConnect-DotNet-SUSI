@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 {
@@ -97,18 +98,17 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
         public async Task<string> GetToken(string bidCode)
         {
+            string body = "code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code", Encoding.UTF8, "application/x-www-form-urlencoded"
+            throw new Exception("Move me: " + body);
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "token");
-
             msg.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + clientSecret)));
-            msg.Content = new StringContent("code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code", Encoding.UTF8, "application/x-www-form-urlencoded");
-
-            var body = await (msg.Content.ReadAsStringAsync());
-
-            throw new Exception("Just to throw something2: " + body);
-
+            msg.Content = new StringContent(body);
             var response = await client.SendAsync(msg);
+            
 
-            throw new Exception("Just to throw something: " + body);
+            //var body = await (msg.Content.ReadAsStringAsync());
+            //throw new Exception("Just to throw something2: " + body);
+            //throw new Exception("Just to throw something: " + body);
             
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
