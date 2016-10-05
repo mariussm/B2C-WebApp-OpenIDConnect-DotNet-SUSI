@@ -70,7 +70,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
         private string clientSecret = "1234";
         private string redirectUri = "https://localhost:44320/";
         private string OIDC_baseUrl = "https://preprod.bankidapis.no/oidc/oauth/";
-       // private string OIDC_userinfo = "https://preprod.bankidapis.no/oidc/oauth/userinfo";
+       
 
         private HttpClient client = new HttpClient();
 
@@ -98,16 +98,19 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
         public async Task<string> GetToken(string bidCode)
         {
-            string body = "code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code";
+           // string body = "code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code";
             
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "token");
 
 
             msg.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + clientSecret)));
-            msg.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
+          //  msg.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
 
-            
-           // var response = await client.SendAsync(msg);
+            msg.Content = new StringContent(" code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code",
+                                            Encoding.UTF8,
+                                            "application/x-www-form-urlencoded");
+
+            // var response = await client.SendAsync(msg);
             var response = await (new HttpClient()).SendAsync(msg);
 
             throw new Exception("Response: \n" + response);
