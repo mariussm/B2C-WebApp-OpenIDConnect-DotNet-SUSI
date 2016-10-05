@@ -103,6 +103,9 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             msg.Content = new StringContent("code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code", Encoding.UTF8, "application/x-www-form-urlencoded");
 
             var body = await (msg.Content.ReadAsStringAsync());
+
+            throw new Exception("Just to throw something2: " + body);
+
             var response = await client.SendAsync(msg);
 
             throw new Exception("Just to throw something: " + body);
