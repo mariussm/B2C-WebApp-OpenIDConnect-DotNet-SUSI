@@ -110,9 +110,9 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
                                             Encoding.UTF8,
                                             "application/x-www-form-urlencoded");
 
-           // var body = await (msg.Content.ReadAsStringAsync());
+            var body = await (msg.Content.ReadAsStringAsync());
 
-            throw new Exception("Message: \n" + msg);
+            throw new Exception("Message: \n" + msg + "\n: Content: \n" + body);
 
             var response = await (new HttpClient()).SendAsync(msg);
 
