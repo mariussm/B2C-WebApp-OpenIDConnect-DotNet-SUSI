@@ -92,7 +92,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
             var response = await (new HttpClient()).SendAsync(msg,HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
-            throw new Exception("Token: "+ token + "\nResponse: " + response);
+            //throw new Exception("Token: "+ token + "\nResponse: " + response);
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
