@@ -59,7 +59,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
             }
 
-            return View();
+            return View("~/Views/Claims.cshtml");
         }
     }
 
