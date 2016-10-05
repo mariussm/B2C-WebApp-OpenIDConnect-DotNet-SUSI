@@ -1,0 +1,32 @@
+﻿@using Newtonsoft.Json.Linq
+
+@{
+    ViewBag.Title = "Userinfo";
+}
+
+<h2>Userinfo</h2>
+
+@if (@ViewBag.Message1 != null)
+{ @ViewBag.Message1 }
+
+@if (@ViewBag.Userinfo != null)
+{
+    <table class="table table-hover table-striped table-condensed">
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+
+
+
+        @foreach (JProperty prop in @ViewBag.Userinfo.Properties())
+        {
+            <tr>
+                <td>@prop.Name</td>
+                <td>@prop.Value</td>
+            </tr>
+        }
+
+    </table>
+}
+
