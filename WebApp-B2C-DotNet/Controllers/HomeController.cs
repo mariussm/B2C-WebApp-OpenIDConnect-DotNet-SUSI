@@ -86,7 +86,10 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "userinfo");
 
-            msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer",Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
+            // msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer",Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
+
+            msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var response = await (new HttpClient()).SendAsync(msg,HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
             throw new Exception("Token: "+ token + "\nResponse: " + response);
