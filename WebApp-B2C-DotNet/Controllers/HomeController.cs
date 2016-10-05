@@ -81,16 +81,15 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
         public async Task<JObject> CallUserinfoEndpoint(string bidCode)
         {
             // Verified until this point
-            string token = GetToken(bidCode).Result;
+            string token = GetToken(bidCode).Result.ToString();
 
             
-
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "userinfo");
 
             msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer",Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
             var response = await (new HttpClient()).SendAsync(msg,HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
-            throw new Exception("Response: " + response);
+            throw new Exception("Token: "+ token + "\nResponse: " + response);
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
