@@ -71,19 +71,23 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
         private string OIDC_baseUrl = "https://preprod.bankidapis.no/oidc/oauth/";
        // private string OIDC_userinfo = "https://preprod.bankidapis.no/oidc/oauth/userinfo";
 
-        public Helper() { }
+        private HttpClient client = new HttpClient();
+
+        public Helper() {
+            client.Timeout = new TimeSpan(0, 0, 30);
+        }
 
         public async Task<JObject> CallUserinfoEndpoint(string bidCode)
         {
             // Verified until this point
             string token = GetToken(bidCode).Result;
 
-            throw new Exception("token: " + token);
+            
 
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "userinfo");
 
             msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer",Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
-            var response = await new HttpClient().SendAsync(msg);
+            var response = await client.SendAsync(msg);
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
@@ -99,9 +103,10 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             msg.Content = new StringContent("code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code", Encoding.UTF8, "application/x-www-form-urlencoded");
 
             var body = await (msg.Content.ReadAsStringAsync());
-            var response = await new HttpClient().SendAsync(msg);
+            var response = await client.SendAsync(msg);
 
-
+            throw new Exception("Just to throw something: " + body);
+            
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
