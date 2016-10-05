@@ -31,8 +31,7 @@
 <input type="button" value="Get userinfo" onclick="location.href='@Url.Action("Userinfo", "Home")'" />
 
 @if (@ViewBag.Message1 != null) { @ViewBag.Message1 }
-@if (@ViewBag.userinfo != null)
-{
+
 <table class="table table-hover table-striped table-condensed">
     <tr>
         <th>Name</th>
@@ -50,4 +49,4 @@
     }
 
 </table>
-}
+
