@@ -90,6 +90,8 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer",Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
             var response = await (new HttpClient()).SendAsync(msg,HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
+            throw new Exception("Response: " + response);
+
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
 
