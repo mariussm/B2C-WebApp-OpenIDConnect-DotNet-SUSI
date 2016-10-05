@@ -98,7 +98,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
         public async Task<string> GetToken(string bidCode)
         {
-            string body = " code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code";
+            string body = "code=" + bidCode + "&redirect_uri=" + redirectUri + "&grant_type=authorization_code";
             
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "token");
 
@@ -107,9 +107,10 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             msg.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
 
             
-            var response = await client.SendAsync(msg);
+           // var response = await client.SendAsync(msg);
+            var response = await (new HttpClient()).SendAsync(msg);
 
-            throw new Exception("Move me: \n" + response);
+            throw new Exception("Response: \n" + response);
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
