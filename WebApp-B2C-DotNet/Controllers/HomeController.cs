@@ -107,9 +107,10 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             msg.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + clientSecret)));
             msg.Content = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
 
-            throw new Exception("Move me: " + msg);
+            
             var response = await client.SendAsync(msg);
-   
+
+            throw new Exception("Move me: \n" + response);
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
