@@ -1,4 +1,6 @@
 ﻿@using System.Security.Claims
+@using Newtonsoft.Json.Linq
+
 @{
     ViewBag.Title = "Claims";
 }
@@ -25,3 +27,27 @@
     }
 
 </table>
+
+<input type="button" value="Get userinfo" onclick="location.href='@Url.Action("Userinfo", "Home")'" />
+
+@if (@ViewBag.Message1 != null) { @ViewBag.Message1 }
+@if (ViewBag.userinfo != null)
+{
+<table class="table table-hover table-striped table-condensed">
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+
+
+
+    @foreach (JProperty prop in ViewBag.userinfo.Properties())
+    {
+        <tr>
+            <td>@prop.Name</td>
+            <td>@prop.Value</td>
+        </tr>
+    }
+
+</table>
+}
