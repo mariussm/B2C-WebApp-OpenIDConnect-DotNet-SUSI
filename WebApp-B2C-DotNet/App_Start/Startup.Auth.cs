@@ -86,7 +86,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C
              //  Try to add bid_client_id claim as Kantega's solution is   
              if (notification.ProtocolMessage.RequestType == OpenIdConnectRequestType.AuthenticationRequest)
              {
-                 notification.ProtocolMessage.Parameters.Add("bid_client_id", "DotNetClient");
+                 //notification.ProtocolMessage.Parameters.Add("bid_client_id", "DotNetClient");
              }
                    
                
