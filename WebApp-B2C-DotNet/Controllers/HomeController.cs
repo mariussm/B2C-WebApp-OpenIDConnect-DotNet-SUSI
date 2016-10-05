@@ -75,7 +75,9 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
 
         public async Task<JObject> CallUserinfoEndpoint(string bidCode)
         {
+            throw new Exception("bicode: " + bidCode);
             string token = GetToken(bidCode).Result;
+            
 
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "userinfo");
 
