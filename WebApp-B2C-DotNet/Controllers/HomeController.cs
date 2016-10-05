@@ -54,7 +54,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
                     Helper h = new Helper();
 
                     JObject userinfo = h.CallUserinfoEndpoint(bid_code).Result;
-                    ViewBag.userinfo = userinfo;
+                    ViewBag.Userinfo = userinfo;
                 }
 
             }
