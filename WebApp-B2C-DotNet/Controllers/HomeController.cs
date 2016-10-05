@@ -72,10 +72,10 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
         private string OIDC_baseUrl = "https://preprod.bankidapis.no/oidc/oauth/";
        
 
-        private HttpClient client = new HttpClient();
+        
 
         public Helper() {
-            client.Timeout = new TimeSpan(0, 0, 30);
+            
         }
 
         public async Task<JObject> CallUserinfoEndpoint(string bidCode)
@@ -88,7 +88,7 @@ namespace WebApp_OpenIDConnect_DotNet_B2C.Controllers
             HttpRequestMessage msg = new HttpRequestMessage(HttpMethod.Post, OIDC_baseUrl + "userinfo");
 
             msg.Headers.Authorization = new AuthenticationHeaderValue("Bearer",Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
-            var response = await client.SendAsync(msg,HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+            var response = await (new HttpClient()).SendAsync(msg,HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
             JObject tokenResponse = JObject.Parse(await response.Content.ReadAsStringAsync());
 
